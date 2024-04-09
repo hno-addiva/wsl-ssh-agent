@@ -1,0 +1,7 @@
+[Unit]
+Description=WSL SSH Agent Forwarding Proxy
+
+[Service]
+StandardInput=socket
+StandardError=journal
+ExecStart=%NPIPERELAY% -ep -ei //./pipe/openssh-ssh-agent

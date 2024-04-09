@@ -1,0 +1,10 @@
+[Unit]
+Description=WSL SSH Agent Socket
+
+[Socket]
+Accept=yes
+ListenStream=/run/user/%UID%/ssh-auth-socket
+SocketMode=0600
+
+[Install]
+WantedBy=default.target
