@@ -1,6 +1,6 @@
 # Purpose
 
-This configures a systemd based WSL instance such as Ubuntu to use the Windows SSH key agent service or any compatible SSH key agent running under Windows such as [Putty](https://www.chiark.greenend.org.uk/~sgtatham/putty/) [pageant](https://the.earth.li/~sgtatham/putty/0.80/htmldoc/Chapter9.html#pageant) or [Keepass](https://keepass.info/) [KeeAgent](https://lechnology.com/software/keeagent/).
+This configures a systemd based WSL instance such as Ubuntu to use the Windows SSH key agent service or any compatible SSH key agent running under Windows such as [Keepass](https://keepass.info/) [KeeAgent](https://lechnology.com/software/keeagent/).
 
 # Requirements
 
@@ -22,14 +22,14 @@ Clean up .config/systemd/ and your .bashrc
 
 There is four parts that makes this work
 
-* npiperelay.exe (windows side) enables connection to Windows pipes via WSL command pipes.
-* ssh-auth.socket systemd socket creates a listening UNIX pipe on the WSL side
-* ssh-auth@.service systemd service starts npiperelay.exe when an application (ssh or similar) connects to the UNIX pipe
-* ssh-auth.bashrc sets SSH_AUTH_SOCK pointing to the above UNIX pipe, enabling ssh to find the ssh-agend connection
+* [npiperelay.exe](https://github.com/jstarks/npiperelay) (windows side) enables connection to Windows pipes via WSL command pipes.
+* [ssh-auth.socket](ssh-auth.socket) systemd socket creates a listening UNIX pipe on the WSL side
+* [ssh-auth@.service](ssh-auth@.service) systemd service starts npiperelay.exe when an application (ssh or similar) connects to the UNIX pipe
+* [ssh-auth.bashrc](ssh-auth.bashrc) sets SSH_AUTH_SOCK pointing to the above UNIX pipe, enabling ssh to find the ssh-agend connection
 
-- windows SSH key agent listens for local connections on //./pipe/openssh-ssh-agent
-- ssh connects to the listening socket set up by systemd  (/run/user/<uid>/ssh-auth-sock)
-- systemd starts npiperelay.exe, connecting to the WSL unix pipe socket to the Windows side pipe //./pipe/openssh-ssh-agent
+1. windows SSH key agent listens for local connections on //./pipe/openssh-ssh-agent
+2. ssh connects to the listening socket set up by systemd  (/run/user/<uid>/ssh-auth-sock)
+3. systemd starts npiperelay.exe, connecting to the WSL unix pipe socket to the Windows side pipe //./pipe/openssh-ssh-agent
 
 # Related work
 
@@ -39,5 +39,6 @@ For WSL1 instances there is [wsl-ssh-agent](https://github.com/rupor-github/wsl-
 
 # Using Putty Pageant
 
-To use Putty Pageant as your SSH key agent, start pagant with the option --unix //./pipe/openssh-ssh-agent
+[Putty](https://www.chiark.greenend.org.uk/~sgtatham/putty/) [pageant](https://the.earth.li/~sgtatham/putty/0.80/htmldoc/Chapter9.html#pageant) also supports OpenSSH clients, but it uses a session unique path for the pipe. You can use the --openssh option to have pageant write out a OpenSSH config file with the path, but further work is neded to integrate this in an seamless manner.
 
+See pageant-relay.sh
