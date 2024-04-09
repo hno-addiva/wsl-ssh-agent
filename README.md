@@ -28,7 +28,7 @@ There is four parts that makes this work
 * [ssh-auth.bashrc](ssh-auth.bashrc) sets SSH_AUTH_SOCK pointing to the above UNIX pipe, enabling ssh to find the ssh-agend connection
 
 1. windows SSH key agent listens for local connections on //./pipe/openssh-ssh-agent
-2. ssh connects to the listening socket set up by systemd  (/run/user/<uid>/ssh-auth-sock)
+2. ssh connects to the listening socket set up by systemd  (/run/user/&lt;uid&gt;/ssh-auth-sock)
 3. systemd starts npiperelay.exe, connecting to the WSL unix pipe socket to the Windows side pipe //./pipe/openssh-ssh-agent
 
 # Related work
