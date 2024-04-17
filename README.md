@@ -41,4 +41,4 @@ For WSL1 instances there is [wsl-ssh-agent](https://github.com/rupor-github/wsl-
 
 [Putty](https://www.chiark.greenend.org.uk/~sgtatham/putty/) [pageant](https://the.earth.li/~sgtatham/putty/0.80/htmldoc/Chapter9.html#pageant) also supports OpenSSH clients, but it uses a session unique path for the pipe. You can use the --openssh option to have pageant write out a OpenSSH config file with the path, but further work is neded to integrate this in an seamless manner.
 
-See pageant-relay.sh
+See [pageant-relay.sh](pageant-relay.sh)
