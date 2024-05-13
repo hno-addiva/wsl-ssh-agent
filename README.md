@@ -1,6 +1,6 @@
 # Purpose
 
-This configures a systemd based WSL instance such as Ubuntu to use the Windows SSH key agent service or any compatible SSH key agent running under Windows such as [Keepass](https://keepass.info/) [KeeAgent](https://lechnology.com/software/keeagent/).
+This configures a systemd based WSL instance such as Ubuntu to use the Windows SSH key agent service or any compatible SSH key agent running under Windows such as [Keepass](https://keepass.info/) [KeeAgent](https://lechnology.com/software/keeagent/) or [Putty](https://www.chiark.greenend.org.uk/~sgtatham/putty/) [pageant](https://the.earth.li/~sgtatham/putty/0.80/htmldoc/Chapter9.html#pageant).
 
 # Requirements
 
@@ -39,6 +39,11 @@ For WSL1 instances there is [wsl-ssh-agent](https://github.com/rupor-github/wsl-
 
 # Using Putty Pageant
 
-[Putty](https://www.chiark.greenend.org.uk/~sgtatham/putty/) [pageant](https://the.earth.li/~sgtatham/putty/0.80/htmldoc/Chapter9.html#pageant) also supports OpenSSH clients, but it uses a session unique path for the pipe. You can use the --openssh option to have pageant write out a OpenSSH config file with the path, but further work is neded to integrate this in an seamless manner.
+Pageant must be started with the --openssh-config command line argument.
 
-See [pageant-relay.sh](pageant-relay.sh)
+```pageant --openssh-config %USERPROFILE%\.ssh\pageant.conf```
+
+Note: You can also automate loading of keys by listing the keys on the command line
+
+Create a custom shortcut in the autostart folder (Win-R shell:startup) to have pageant launched with the right options when you login
+
