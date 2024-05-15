@@ -26,6 +26,7 @@ install: check-npipe
 activate: install
 	systemctl --user daemon-reload
 	systemctl --user enable ssh-auth.socket
+	systemctl --user start ssh-auth.socket
 	@echo
 	@echo "Start a new shell to set SSH_AUTH_SOCK to enable ssh-agent connection"
 	@echo
